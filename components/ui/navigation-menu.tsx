@@ -2,6 +2,7 @@ import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDownIcon } from "lucide-react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
@@ -126,7 +127,9 @@ export function NavigationMenuLink({
   className,
   href,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Link> & { href?: string }) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Link> & {
+  href?: string;
+}) {
   return (
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
@@ -156,7 +159,7 @@ export const NavigationMenuIndicator = ({
       <div className="bg-border relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm shadow-md" />
     </NavigationMenuPrimitive.Indicator>
   );
-}
+};
 
 export type NavItem = {
   title: string;
@@ -168,28 +171,42 @@ export type NavItem = {
 };
 
 export interface HeaderProps {
-  logo?: React.ReactNode;
+  logoSrc?: string;
+  logoAlt?: string;
+  logoWidth?: number;
+  logoHeight?: number;
   navItems?: NavItem[];
   includeThemeToggle?: boolean;
   className?: string;
 }
 
 export const Header = ({
-  logo = "Logo",
+  logoSrc = "/logo.png",
+  logoAlt = "Logo",
+  logoWidth = 20,
+  logoHeight = 20,
   navItems = [
     {
       title: "About",
-      children: [{ title: "Link", href: "#" }]
+      children: [{ title: "Link", href: "#" }],
     },
     { title: "Resources" },
-    { title: "Contact" }
+    { title: "Contact" },
   ],
   includeThemeToggle = true,
-  className
+  className,
 }: HeaderProps) => {
   return (
     <NavigationMenu className={className}>
-      <div className="flex items-center text-xl">{logo}</div>
+      <div className="flex items-center text-xl">
+        <Image
+          src={logoSrc}
+          alt={logoAlt}
+          width={logoWidth}
+          height={logoHeight}
+          priority
+        />
+      </div>
       <NavigationMenuList>
         {navItems.map((item, index) => (
           <NavigationMenuItem key={index}>
@@ -203,10 +220,7 @@ export const Header = ({
                 {item.children && (
                   <NavigationMenuContent>
                     {item.children.map((child, childIndex) => (
-                      <NavigationMenuLink 
-                        key={childIndex} 
-                        href={child.href}
-                      >
+                      <NavigationMenuLink key={childIndex} href={child.href}>
                         {child.title}
                       </NavigationMenuLink>
                     ))}
