@@ -1,4 +1,4 @@
-import { HeroPrompt } from "@/components/ui/ai-promt";
+import { HeroPrompt } from "@/components/ui/ai-prompt";
 import { Header } from "@/components/ui/navigation-menu";
 import { ApplicationStats } from "@/components/ui/application-stats";
 import { Footer } from "@/components/ui/footer/footer";

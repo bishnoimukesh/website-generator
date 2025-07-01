@@ -14,6 +14,19 @@ async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3,
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       const response = await fetch(url, options);
+      
+      // Check for rate limiting (HTTP 429) and retry
+      if (response.status === 429) {
+        console.log(`Request attempt ${attempt + 1} received rate limit response (HTTP 429)`);
+        
+        if (attempt < maxRetries - 1) {
+          const delay = retryDelay * Math.pow(2, attempt); // Exponential backoff
+          console.log(`Retrying in ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
+      }
+      
       return response;
     } catch (error) {
       lastError = error as Error;
