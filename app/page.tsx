@@ -10,8 +10,8 @@ export default function Home() {
       <Header />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <HeroPrompt 
-          // formAction={handleWebsiteGeneration}
           textareaName="prompt"
+          placeholder="Describe your website (e.g., 'Create a landing page for a coffee shop')"
         />
         <IconSection />
         <ApplicationStats />
