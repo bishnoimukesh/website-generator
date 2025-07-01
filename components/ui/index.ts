@@ -7,7 +7,7 @@ export { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuC
 export { ThemeToggle } from './theme-toggle'
 
 // Component exports
-export { HeroPrompt } from './ai-promt'
+export { HeroPrompt } from './ai-prompt'
 export { ApplicationStats } from './application-stats'
 export { IconSection } from './icon-section'
 export { Footer } from './footer/footer'

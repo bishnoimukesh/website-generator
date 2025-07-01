@@ -183,8 +183,8 @@ export interface HeaderProps {
 export const Header = ({
   logoSrc = "/logo.png",
   logoAlt = "Logo",
-  logoWidth = 20,
-  logoHeight = 20,
+  logoWidth = 40,
+  logoHeight = 40,
   navItems = [
     {
       title: "About",

@@ -1,4 +1,4 @@
-import { HeroPrompt } from "@/components/ui/ai-promt";
+import { HeroPrompt } from "@/components/ui/ai-prompt";
 import { Header } from "@/components/ui/navigation-menu";
 import { ApplicationStats } from "@/components/ui/application-stats";
 import { Footer } from "@/components/ui/footer/footer";
@@ -10,8 +10,8 @@ export default function Home() {
       <Header />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <HeroPrompt 
-          // formAction={handleWebsiteGeneration}
           textareaName="prompt"
+          placeholder="Describe your website (e.g., 'Create a landing page for a coffee shop')"
         />
         <IconSection />
         <ApplicationStats />
