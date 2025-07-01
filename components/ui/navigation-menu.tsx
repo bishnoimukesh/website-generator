@@ -1,24 +1,26 @@
-import * as React from "react"
-import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
-import { cva } from "class-variance-authority"
-import { ChevronDownIcon } from "lucide-react"
+import * as React from "react";
+import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
+import { cva } from "class-variance-authority";
+import { ChevronDownIcon } from "lucide-react";
+import Image from "next/image";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./theme-toggle";
 
-function NavigationMenu({
+export function NavigationMenu({
   className,
   children,
   viewport = true,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
-  viewport?: boolean
+  viewport?: boolean;
 }) {
   return (
     <NavigationMenuPrimitive.Root
       data-slot="navigation-menu"
       data-viewport={viewport}
       className={cn(
-        "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+        "group/navigation-menu relative flex max-w-4xl w-full mx-auto flex-1 items-center justify-between my-4 sticky top-8 bg-blend-luminosity",
         className
       )}
       {...props}
@@ -26,10 +28,10 @@ function NavigationMenu({
       {children}
       {viewport && <NavigationMenuViewport />}
     </NavigationMenuPrimitive.Root>
-  )
+  );
 }
 
-function NavigationMenuList({
+export function NavigationMenuList({
   className,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.List>) {
@@ -42,10 +44,10 @@ function NavigationMenuList({
       )}
       {...props}
     />
-  )
+  );
 }
 
-function NavigationMenuItem({
+export function NavigationMenuItem({
   className,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Item>) {
@@ -55,14 +57,14 @@ function NavigationMenuItem({
       className={cn("relative", className)}
       {...props}
     />
-  )
+  );
 }
 
-const navigationMenuTriggerStyle = cva(
+export const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
-)
+);
 
-function NavigationMenuTrigger({
+export function NavigationMenuTrigger({
   className,
   children,
   ...props
@@ -79,10 +81,10 @@ function NavigationMenuTrigger({
         aria-hidden="true"
       />
     </NavigationMenuPrimitive.Trigger>
-  )
+  );
 }
 
-function NavigationMenuContent({
+export function NavigationMenuContent({
   className,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
@@ -96,10 +98,10 @@ function NavigationMenuContent({
       )}
       {...props}
     />
-  )
+  );
 }
 
-function NavigationMenuViewport({
+export function NavigationMenuViewport({
   className,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Viewport>) {
@@ -118,13 +120,16 @@ function NavigationMenuViewport({
         {...props}
       />
     </div>
-  )
+  );
 }
 
-function NavigationMenuLink({
+export function NavigationMenuLink({
   className,
+  href,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Link>) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Link> & {
+  href?: string;
+}) {
   return (
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
@@ -132,15 +137,16 @@ function NavigationMenuLink({
         "data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      href={href}
       {...props}
     />
-  )
+  );
 }
 
-function NavigationMenuIndicator({
+export const NavigationMenuIndicator = ({
   className,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Indicator>) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Indicator>) => {
   return (
     <NavigationMenuPrimitive.Indicator
       data-slot="navigation-menu-indicator"
@@ -152,17 +158,80 @@ function NavigationMenuIndicator({
     >
       <div className="bg-border relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm shadow-md" />
     </NavigationMenuPrimitive.Indicator>
-  )
+  );
+};
+
+export type NavItem = {
+  title: string;
+  href?: string;
+  disabled?: boolean;
+  external?: boolean;
+  icon?: React.ReactNode;
+  children?: Omit<NavItem, "children">[];
+};
+
+export interface HeaderProps {
+  logoSrc?: string;
+  logoAlt?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+  navItems?: NavItem[];
+  includeThemeToggle?: boolean;
+  className?: string;
 }
 
-export {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
-  NavigationMenuIndicator,
-  NavigationMenuViewport,
-  navigationMenuTriggerStyle,
-}
+export const Header = ({
+  logoSrc = "/logo.png",
+  logoAlt = "Logo",
+  logoWidth = 20,
+  logoHeight = 20,
+  navItems = [
+    {
+      title: "About",
+      children: [{ title: "Link", href: "#" }],
+    },
+    { title: "Resources" },
+    { title: "Contact" },
+  ],
+  includeThemeToggle = true,
+  className,
+}: HeaderProps) => {
+  return (
+    <NavigationMenu className={className}>
+      <div className="flex items-center text-xl">
+        <Image
+          src={logoSrc}
+          alt={logoAlt}
+          width={logoWidth}
+          height={logoHeight}
+          priority
+        />
+      </div>
+      <NavigationMenuList>
+        {navItems.map((item, index) => (
+          <NavigationMenuItem key={index}>
+            {item.href && !item.children ? (
+              <NavigationMenuLink href={item.href}>
+                {item.title}
+              </NavigationMenuLink>
+            ) : (
+              <>
+                <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+                {item.children && (
+                  <NavigationMenuContent>
+                    {item.children.map((child, childIndex) => (
+                      <NavigationMenuLink key={childIndex} href={child.href}>
+                        {child.title}
+                      </NavigationMenuLink>
+                    ))}
+                  </NavigationMenuContent>
+                )}
+              </>
+            )}
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+      {includeThemeToggle && <ThemeToggle />}
+    </NavigationMenu>
+  );
+};
