@@ -274,21 +274,21 @@ export async function POST(request: NextRequest) {
         
         // Create a fallback object with what we could extract
         parsedContent = {
-          title: extractedProps.title || "Coffee Shop",
-          description: extractedProps.description || "A cozy coffee shop with great atmosphere",
+          title: extractedProps.title || "Untitled Website",
+          description: extractedProps.description || "Description not available",
           theme: extractedProps.theme || {
-            primaryColor: "#6F4E37",
-            secondaryColor: "#C4A484",
-            fontFamily: "'Nunito Sans', sans-serif",
-            style: "rustic-modern"
+            primaryColor: "#000000", // Default to black
+            secondaryColor: "#FFFFFF", // Default to white
+            fontFamily: "sans-serif", // Generic font family
+            style: "default" // Neutral style
           },
-          sections: [
+          sections: extractedProps.sections || [
             {
-              type: "hero",
-              layout: "centered",
-              heading: "Welcome to our Coffee Shop",
-              subheading: "Enjoy our handcrafted coffee",
-              cta: "View Menu"
+              type: "placeholder",
+              layout: "default",
+              heading: "Content not available",
+              subheading: "Please provide more details",
+              cta: "Learn More"
             }
           ]
         };
