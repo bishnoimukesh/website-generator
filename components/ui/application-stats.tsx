@@ -18,7 +18,7 @@ export interface ApplicationStatsProps {
 
 export const ApplicationStats = ({
   title = "By The Numbers",
-  subtitle = "See why users loves our platform",
+  subtitle = "See why users love our platform",
   stats = [
     {
       label: "Total users",

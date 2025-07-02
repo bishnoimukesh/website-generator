@@ -41,7 +41,7 @@ export const HeroPrompt = ({
   logoHref = "#",
   logoText = "Web Builder",
   logoIcon: LogoIcon = GalleryVerticalEnd,
-  className,
+  className="",
   formId,
   textareaName = "prompt",
   defaultValue = "",

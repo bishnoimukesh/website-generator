@@ -99,7 +99,7 @@ export const IconSection = ({
           )}
         </div>
       )}
-        <div className={`${"max-w-4xl"} ${spacing.section}`}>
+        <div className={`${spacing.section}`}>
         <div
           className={`${spacing.columns} ${
             columns === 1
