@@ -45,18 +45,20 @@ export const FeaturesGrid = ({
     "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
 
   return (
-    <div className="container px-4 md:px-6 mx-auto">
-      <div className={`${"grid gap-6"} ${gridColumnsClass} ${"max-w-5xl mx-auto"}`}>
-        {displayFeatures.map((feature, index) => (
-          <Card key={index} className="bg-card/50 border-border/50 shadow-sm">
-            <CardHeader className="pb-2">
-              {feature.icon}
-              <CardTitle>{feature.title}</CardTitle>
-              <CardDescription>{feature.description}</CardDescription>
-            </CardHeader>
-          </Card>
-        ))}
+    <section className="w-full py-16">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+        <div className={`${"grid gap-6"} ${gridColumnsClass} ${"mx-auto"}`}>
+          {displayFeatures.map((feature, index) => (
+            <Card key={index} className="bg-card/50 border-border/50 shadow-sm">
+              <CardHeader className="pb-2">
+                {feature.icon}
+                <CardTitle>{feature.title}</CardTitle>
+                <CardDescription>{feature.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };

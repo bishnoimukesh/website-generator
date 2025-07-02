@@ -41,7 +41,7 @@ export const HeroPrompt = ({
   logoHref = "#",
   logoText = "Web Builder",
   logoIcon: LogoIcon = GalleryVerticalEnd,
-  className = "",
+  className,
   formId,
   textareaName = "prompt",
   defaultValue = "",
@@ -65,7 +65,6 @@ export const HeroPrompt = ({
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -78,46 +77,34 @@ export const HeroPrompt = ({
     setError(null);
     
     try {
-      // Generate website content
-      console.log("Generating website for prompt:", prompt);
       const websiteContent = await generateWebsite(prompt);
       
       if (!websiteContent) {
         throw new Error("No content was generated. Please try again.");
       }
       
-      console.log("Generated content:", websiteContent);
-      
-      // Save content for the preview page
       const contentId = saveWebsiteContent(websiteContent);
       
-      // Redirect to the preview page
       router.push(`/preview/${contentId}`);
     } catch (err) {
       console.error("Error generating website:", err);
       
-      // Enhanced error handling with more detailed messages and better UX for connection issues
       if (err instanceof Error) {
-        // Network/connection errors
         if (err.message.includes("Failed to fetch") || 
             err.message.includes("network") || 
             err.message.includes("Connection error") ||
             err.message.includes("connect")) {
           setError("Network error: Unable to reach our servers. Please check your internet connection and try again.");
         } 
-        // API key issues
         else if (err.message.includes("OpenAI API key") || err.message.includes("API key") || err.message.includes("authentication")) {
           setError("OpenAI API key is missing or invalid. Please check your environment configuration in the .env.local file.");
         } 
-        // Rate limiting
         else if (err.message.includes("rate limit") || err.message.includes("429")) {
           setError("OpenAI rate limit reached. Please try again after a few moments.");
         }
-        // Timeout issues
         else if (err.message.includes("timeout") || err.message.includes("timed out")) {
           setError("Request timed out. The server took too long to respond. Please try a simpler prompt or try again later.");
         }
-        // Pass through other error messages
         else {
           setError(err.message);
         }
@@ -130,9 +117,10 @@ export const HeroPrompt = ({
   };
 
   return (
-      <div className={`flex flex-col w-full h-[calc(100vh-180px)] justify-center ${className}`}>
-        <div className="flex-grow py-12 lg:py-16 flex flex-col justify-center">
-          <div className="max-w-4xl w-full text-center mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full min-h-screen flex items-center justify-center">
+      <div className={`flex flex-col w-full max-w-6xl mx-auto px-4 md:px-6 ${className}`}>
+        <div className="flex flex-col justify-center text-center">
+          <div className="max-w-4xl w-full mx-auto mb-12">
             <div className="mb-4 flex justify-center items-center">
               <Link
                 href={logoHref}
@@ -242,5 +230,6 @@ export const HeroPrompt = ({
           </div>
         </div>
       </div>
+    </section>
   );
 }

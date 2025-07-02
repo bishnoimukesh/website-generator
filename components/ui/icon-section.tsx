@@ -85,7 +85,8 @@ export const IconSection = ({
   }
 
   return (
-    <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px] py-24 lg:py-32">
+    <section className="w-full py-16">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
       {showHeader && (
         <div className="text-center py-16">
           <h2 className="text-3xl font-bold tracking-tighter mb-4">
@@ -98,7 +99,7 @@ export const IconSection = ({
           )}
         </div>
       )}
-      <div className={`${"max-w-4xl"} ${spacing.section}`}>
+        <div className={`${"max-w-4xl"} ${spacing.section}`}>
         <div
           className={`${spacing.columns} ${
             columns === 1
@@ -133,7 +134,8 @@ export const IconSection = ({
             </div>
           ))}
         </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
