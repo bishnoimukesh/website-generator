@@ -5,6 +5,8 @@ export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from './dropdown-menu'
 export { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuContent, NavigationMenuTrigger, NavigationMenuLink, NavigationMenuViewport, Header } from './navigation-menu'
 export { ThemeToggle } from './theme-toggle'
+export { HowItWorks } from './how-it-works'
+export { FeaturesGrid } from './features-grid'
 
 // Component exports
 export { HeroPrompt } from './ai-prompt'
