@@ -1,75 +1,90 @@
+import React from "react";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const ApplicationStats = () => {
+interface StatItem {
+  label: string;
+  value: string;
+  changeValue?: string;
+  changeDirection?: "up" | "down";
+}
+
+export interface ApplicationStatsProps {
+  title?: string;
+  subtitle?: string;
+  stats?: StatItem[];
+  showHeader?: boolean;
+}
+
+export const ApplicationStats = ({
+  title = "By The Numbers",
+  subtitle = "See why users loves our platform",
+  stats = [
+    {
+      label: "Total users",
+      value: "72,540",
+      changeValue: "1.7%",
+      changeDirection: "up",
+    },
+    {
+      label: "Sessions",
+      value: "29.4%",
+    },
+    {
+      label: "Avg. Click Rate",
+      value: "56.8%",
+      changeValue: "1.7%",
+      changeDirection: "down",
+    },
+    {
+      label: "Pageviews",
+      value: "92,913",
+    },
+  ],
+
+}: ApplicationStatsProps) => {
   return (
-    <div className="container mx-auto px-4 py-10 md:px-6 2xl:max-w-[1400px]">
-        <h1 className="text-xl py-4 text-xl font-semibold">User Engagements</h1>
+    <div className="container mx-auto px-4 py-10 md:px-6 2xl:max-w-[1024px]">
+      <div className="container px-4 py:8 md:px-6 mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold tracking-tighter mb-2">{title}</h2>
+          <p className="text-muted-foreground">{subtitle}</p>
+        </div>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {/* Card */}
-        <Card className="pt-0">
-          <CardContent className="pt-6">
-            <div className="flex flex-col">
-              <p className="text-muted-foreground text-xs tracking-wide uppercase">
-                Total users
-              </p>
-              <div className="mt-1 flex items-center gap-x-2">
-                <h3 className="text-xl font-medium sm:text-2xl">72,540</h3>
-                <span className="flex items-center gap-x-1 text-green-700 dark:text-green-400">
-                  <ArrowUp className="h-4 w-4" />
-                  <span className="text-sm">1.7%</span>
-                </span>
+        {stats.map((stat, index) => (
+          <Card key={index} className="pt-0">
+            <CardContent className="pt-6">
+              <div className="flex flex-col">
+                <p className="text-muted-foreground text-xs tracking-wide uppercase">
+                  {stat.label}
+                </p>
+                <div className="mt-1 flex items-center gap-x-2">
+                  <h3 className="text-xl font-medium sm:text-2xl">
+                    {stat.value}
+                  </h3>
+                  {stat.changeValue && stat.changeDirection && (
+                    <span
+                      className={`flex items-center gap-x-1 ${
+                        stat.changeDirection === "up"
+                          ? "text-green-700 dark:text-green-400"
+                          : "text-red-700 dark:text-red-400"
+                      }`}
+                    >
+                      {stat.changeDirection === "up" ? (
+                        <ArrowUp className="h-4 w-4" />
+                      ) : (
+                        <ArrowDown className="h-4 w-4" />
+                      )}
+                      <span className="text-sm">{stat.changeValue}</span>
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card */}
-        <Card className="pt-0">
-          <CardContent className="pt-6">
-            <div className="flex flex-col">
-              <p className="text-muted-foreground text-xs tracking-wide uppercase">
-                Sessions
-              </p>
-              <div className="mt-1 flex items-center gap-x-2">
-                <h3 className="text-xl font-medium sm:text-2xl">29.4%</h3>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card */}
-        <Card className="pt-0">
-          <CardContent className="pt-6">
-            <div className="flex flex-col">
-              <p className="text-muted-foreground text-xs tracking-wide uppercase">
-                Avg. Click Rate
-              </p>
-              <div className="mt-1 flex items-center gap-x-2">
-                <h3 className="text-xl font-medium sm:text-2xl">56.8%</h3>
-                <span className="flex items-center gap-x-1 text-red-700 dark:text-red-400">
-                  <ArrowDown className="h-4 w-4" />
-                  <span className="text-sm">1.7%</span>
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card */}
-        <Card className="pt-0">
-          <CardContent className="pt-6">
-            <div className="flex flex-col">
-              <p className="text-muted-foreground text-xs tracking-wide uppercase">
-                Pageviews
-              </p>
-              <div className="mt-1 flex items-center gap-x-2">
-                <h3 className="text-xl font-medium sm:text-2xl">92,913</h3>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   );
-}
+};

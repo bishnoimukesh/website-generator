@@ -3,7 +3,9 @@ import { Header } from "@/components/ui/navigation-menu";
 import { ApplicationStats } from "@/components/ui/application-stats";
 import { Footer } from "@/components/ui/footer/footer";
 import { IconSection } from "@/components/ui/icon-section";
-import { Analytics } from "@vercel/analytics/next"
+import { HowItWorks } from "@/components/ui/how-it-works";
+import { FeaturesGrid } from "@/components/ui/features-grid";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   return (
@@ -15,8 +17,12 @@ export default function Home() {
           textareaName="prompt"
           placeholder="Describe your website (e.g., 'Create a landing page for a coffee shop')"
         />
-        <IconSection />
+
+        <FeaturesGrid />
+
         <ApplicationStats />
+        <HowItWorks />
+        <IconSection />
       </main>
       <Footer />
     </div>

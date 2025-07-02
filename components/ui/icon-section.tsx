@@ -10,11 +10,6 @@ export interface IconFeature {
 export interface IconSectionProps {
   features?: IconFeature[];
   columns?: 1 | 2 | 3 | 4;
-  containerClassName?: string;
-  iconSize?: number;
-  iconClassName?: string;
-  titleClassName?: string;
-  descriptionClassName?: string;
   spacing?: {
     container?: string;
     section?: string;
@@ -22,24 +17,23 @@ export interface IconSectionProps {
     features?: string;
     icon?: string;
   };
-  maxWidth?: string;
+  title?: string;
+  subtitle?: string;
+  showHeader?: boolean;
 }
 
 export const IconSection = ({
   features,
   columns = 2,
-  containerClassName = "container mx-auto px-4 md:px-6 2xl:max-w-[1400px] py-24 lg:py-32",
-  iconSize = 8,
-  iconClassName = "flex-shrink-0 mt-2",
-  titleClassName = "text-base sm:text-lg font-semibold",
-  descriptionClassName = "mt-1 text-muted-foreground",
   spacing = {
     section: "max-w-4xl mx-auto",
     columns: "grid gap-6 lg:gap-12",
     features: "space-y-6 lg:space-y-10",
     icon: "ms-5 sm:ms-8",
   },
-  maxWidth = "max-w-4xl",
+  title = "Powerful Features",
+  subtitle = "Everything you need to create a professional website with just a few clicks.",
+  showHeader = true,
 }: IconSectionProps) => {
   const defaultFeatures: IconFeature[] = [
     {
@@ -91,8 +85,20 @@ export const IconSection = ({
   }
 
   return (
-    <div className={containerClassName}>
-      <div className={`${maxWidth} ${spacing.section}`}>
+    <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px] py-24 lg:py-32">
+      {showHeader && (
+        <div className="text-center py-16">
+          <h2 className="text-3xl font-bold tracking-tighter mb-4">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="text-muted-foreground max-w-[700px] mx-auto">
+              {subtitle}
+            </p>
+          )}
+        </div>
+      )}
+      <div className={`${"max-w-4xl"} ${spacing.section}`}>
         <div
           className={`${spacing.columns} ${
             columns === 1
@@ -112,12 +118,12 @@ export const IconSection = ({
                   <div key={`${groupIndex}-${featureIndex}`} className="flex">
                     {IconComponent && (
                       <IconComponent
-                        className={`${iconClassName} h-${iconSize} w-${iconSize}`}
+                        className="flex-shrink-0 mt-2 h-8 w-8"
                       />
                     )}
                     <div className={spacing.icon}>
-                      <h3 className={titleClassName}>{feature.title}</h3>
-                      <p className={descriptionClassName}>
+                      <h3 className="text-base sm:text-lg font-semibold">{feature.title}</h3>
+                      <p className="mt-1 text-muted-foreground">
                         {feature.description}
                       </p>
                     </div>
