@@ -117,7 +117,7 @@ export const HeroPrompt = ({
   };
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center">
+    <section className="w-full min-h-[calc(100vh-140px)] flex items-center justify-center">
       <div className={`flex flex-col w-full max-w-6xl mx-auto px-4 md:px-6 ${className}`}>
         <div className="flex flex-col justify-center text-center">
           <div className="max-w-4xl w-full mx-auto mb-12">

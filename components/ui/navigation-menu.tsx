@@ -20,7 +20,7 @@ export function NavigationMenu({
       data-slot="navigation-menu"
       data-viewport={viewport}
       className={cn(
-        "group/navigation-menu relative fixed top-0 left-0 right-0 flex max-w-5xl w-full mx-auto flex-1 items-center justify-between z-50 bg-background/80 backdrop-blur-md px-6 py-3 rounded-lg transition-all duration-200 ease-in-out",
+        "group/navigation-menu relative sticky top-0 pt-16 flex max-w-5xl w-full mx-auto flex-1 items-center justify-between z-50 bg-background/80 backdrop-blur-md px-6 py-3 rounded-lg transition-all duration-200 ease-in-out",
         className
       )}
       {...props}
