@@ -5,6 +5,7 @@ import { Footer } from "@/components/ui/footer/footer";
 import { IconSection } from "@/components/ui/icon-section";
 import { HowItWorks } from "@/components/ui/how-it-works";
 import { FeaturesGrid } from "@/components/ui/features-grid";
+import PromptingIsAllYouNeed from "@/components/ui/prompting";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           placeholder="Describe your website (e.g., 'Create a landing page for a coffee shop')"
         />
         <FeaturesGrid />
+        <PromptingIsAllYouNeed />
         <ApplicationStats />
         <HowItWorks />
         <IconSection />

@@ -7,6 +7,7 @@ import { Textarea } from "./textarea";
 import { useState } from "react";
 import { generateWebsite, saveWebsiteContent } from "@/lib/services/website-generator";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 export type HeroPromptProps = {
   title?: string;
@@ -64,7 +65,9 @@ export const HeroPrompt = ({
   const [prompt, setPrompt] = useState(defaultValue);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const supabase = createClient();
 
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -72,7 +75,7 @@ export const HeroPrompt = ({
       setError("Please enter a prompt");
       return;
     }
-
+    
     setIsGenerating(true);
     setError(null);
     
@@ -86,14 +89,24 @@ export const HeroPrompt = ({
       const contentId = saveWebsiteContent(websiteContent);
       
       router.push(`/preview/${contentId}`);
+
+      const { data, error } = await supabase
+        .from('user_prompts')
+        .insert({ session: contentId, prompt: prompt })
+      if (error) {
+        console.error("Error inserting initial data:", error);
+      } else {
+        console.log("Initial data inserted:", data);
+      }
+
     } catch (err) {
       console.error("Error generating website:", err);
       
       if (err instanceof Error) {
         if (err.message.includes("Failed to fetch") || 
-            err.message.includes("network") || 
-            err.message.includes("Connection error") ||
-            err.message.includes("connect")) {
+        err.message.includes("network") || 
+        err.message.includes("Connection error") ||
+        err.message.includes("connect")) {
           setError("Network error: Unable to reach our servers. Please check your internet connection and try again.");
         } 
         else if (err.message.includes("OpenAI API key") || err.message.includes("API key") || err.message.includes("authentication")) {
