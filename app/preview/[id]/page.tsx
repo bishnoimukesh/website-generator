@@ -33,6 +33,7 @@ import { createClient } from "@/utils/supabase/client";
 import {
   FeatureItem,
   TestimonialItem,
+  PricingPlan,
   GalleryItem,
   WebsiteContent,
 } from "@/lib/types";
