@@ -7,6 +7,9 @@ export { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuC
 export { ThemeToggle } from './theme-toggle'
 export { HowItWorks } from './how-it-works'
 export { FeaturesGrid } from './features-grid'
+export { LoginForm } from './login-form'
+export { RegisterForm } from './register-form'
+export { AuthButton } from './auth-button'
 
 // Component exports
 export { HeroPrompt } from './ai-prompt'

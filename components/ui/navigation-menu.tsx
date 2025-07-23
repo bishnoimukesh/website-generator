@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
@@ -6,6 +8,7 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
+import { AuthButton } from "./auth-button";
 
 export function NavigationMenu({
   className,
@@ -177,6 +180,7 @@ export interface HeaderProps {
   logoHeight?: number;
   navItems?: NavItem[];
   includeThemeToggle?: boolean;
+  includeAuth?: boolean;
   className?: string;
 }
 
@@ -194,6 +198,7 @@ export const Header = ({
     { title: "Contact" },
   ],
   includeThemeToggle = true,
+  includeAuth = true,
   className,
 }: HeaderProps) => {
   return (
@@ -231,7 +236,10 @@ export const Header = ({
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
-      {includeThemeToggle && <ThemeToggle />}
+      <div className="flex items-center gap-2">
+        {includeAuth && <AuthButton />}
+        {includeThemeToggle && <ThemeToggle />}
+      </div>
     </NavigationMenu>
   );
 };
