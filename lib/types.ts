@@ -12,15 +12,6 @@ export interface TestimonialItem {
   image?: string;
 }
 
-export interface PricingPlan {
-  name: string;
-  price: string;
-  period: string;
-  features: string[];
-  cta: string;
-  highlighted?: boolean;
-}
-
 export interface GalleryItem {
   title: string;
   description: string;

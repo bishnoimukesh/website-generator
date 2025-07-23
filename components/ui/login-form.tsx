@@ -28,7 +28,7 @@ export const LoginForm = ({
 
   // Configuration for OAuth providers
   const oauthEnabled = {
-    google: false, // Set to true when Google OAuth is configured in Supabase
+    google: true, // Set to true when Google OAuth is configured in Supabase
     apple: false,  // Set to true when Apple OAuth is configured in Supabase
   }
 
